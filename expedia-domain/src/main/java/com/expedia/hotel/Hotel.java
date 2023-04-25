@@ -10,7 +10,7 @@ public class Hotel {
     private String name;
     private String description;
     private Location location;
-    private int totalPrice;
+    private float totalPrice;
     private String image;
     private List<Review> reviews;
     private boolean swimmingPoolAvailable;
@@ -43,10 +43,10 @@ public class Hotel {
         this.location = location;
     }
 
-    public int getTotalPrice() {
+    public float getTotalPrice() {
         return totalPrice;
     }
-    public void setTotalPrice(final int totalPrice) {
+    public void setTotalPrice(final float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -69,5 +69,68 @@ public class Hotel {
     }
     public void setSwimmingPoolAvailable(final boolean swimmingPoolAvailable) {
         this.swimmingPoolAvailable = swimmingPoolAvailable;
+    }
+
+    public static class Builder {
+        final private String id;
+        private String name;
+        private String description;
+        private Location location;
+        private float totalPrice;
+        private String image;
+        private List<Review> reviews;
+        private boolean swimmingPoolAvailable;
+
+        public Builder(String id) {
+            this.id = id;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withLocation(Location location) {
+            this.location = location;
+            return this;
+        }
+
+        public Builder withTotalPrice(float totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
+
+        public Builder withImage(String image) {
+            this.image = image;
+            return this;
+        }
+
+        public Builder withReviews(List<Review> reviews) {
+            this.reviews = reviews;
+            return this;
+        }
+
+        public Builder withSwimmingPoolAvailable(boolean swimmingPoolAvailable) {
+            this.swimmingPoolAvailable = swimmingPoolAvailable;
+            return this;
+        }
+
+        public Hotel build() {
+            final Hotel hotel = new Hotel();
+            hotel.setId(this.id);
+            hotel.setName(this.name);
+            hotel.setDescription(this.description);
+            hotel.setLocation(this.location);
+            hotel.setTotalPrice(this.totalPrice);
+            hotel.setImage(this.image);
+            hotel.setReviews(this.reviews);
+            hotel.setSwimmingPoolAvailable(this.swimmingPoolAvailable);
+            return hotel;
+        }
     }
 }

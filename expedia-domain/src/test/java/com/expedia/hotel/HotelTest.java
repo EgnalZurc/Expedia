@@ -48,9 +48,9 @@ public class HotelTest {
     @Test
     public void testSetAndGetTotalPrice() {
         Hotel hotel = new Hotel();
-        int price = 100;
+        float price = 100.1F;
         hotel.setTotalPrice(price);
-        assertEquals(price, hotel.getTotalPrice());
+        assertEquals(price, hotel.getTotalPrice(), 0.1);
     }
 
     @Test
@@ -89,5 +89,36 @@ public class HotelTest {
         boolean hasSwimmingPool = true;
         hotel.setSwimmingPoolAvailable(hasSwimmingPool);
         assertEquals(hasSwimmingPool, hotel.isSwimmingPoolAvailable());
+    }
+
+    @Test
+    public void testBuilder() {
+        String id = "hotel1";
+        String name = "Test Hotel";
+        String description = "This is a test hotel";
+        Location location = new Location.Builder("location1").build();
+        float totalPrice = 100.1f;
+        String image = "test_image.jpg";
+        List<Review> reviews = new ArrayList<>();
+        boolean swimmingPoolAvailable = true;
+
+        Hotel hotel = new Hotel.Builder(id)
+                .withName(name)
+                .withDescription(description)
+                .withLocation(location)
+                .withTotalPrice(totalPrice)
+                .withImage(image)
+                .withReviews(reviews)
+                .withSwimmingPoolAvailable(swimmingPoolAvailable)
+                .build();
+
+        assertEquals(id, hotel.getId());
+        assertEquals(name, hotel.getName());
+        assertEquals(description, hotel.getDescription());
+        assertEquals(location, hotel.getLocation());
+        assertEquals(totalPrice, hotel.getTotalPrice(), 0.1);
+        assertEquals(image, hotel.getImage());
+        assertEquals(reviews, hotel.getReviews());
+        assertEquals(swimmingPoolAvailable, hotel.isSwimmingPoolAvailable());
     }
 }
