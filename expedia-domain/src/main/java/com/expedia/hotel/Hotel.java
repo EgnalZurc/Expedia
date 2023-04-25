@@ -18,6 +18,7 @@ public class Hotel {
     public String getId() {
         return id;
     }
+
     public void setId(final String id) {
         this.id = id;
     }
@@ -25,6 +26,7 @@ public class Hotel {
     public String getName() {
         return name;
     }
+
     public void setName(final String name) {
         this.name = name;
     }
@@ -32,6 +34,7 @@ public class Hotel {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(final String description) {
         this.description = description;
     }
@@ -39,6 +42,7 @@ public class Hotel {
     public Location getLocation() {
         return location;
     }
+
     public void setLocation(final Location location) {
         this.location = location;
     }
@@ -46,6 +50,7 @@ public class Hotel {
     public float getTotalPrice() {
         return totalPrice;
     }
+
     public void setTotalPrice(final float totalPrice) {
         this.totalPrice = totalPrice;
     }
@@ -53,6 +58,7 @@ public class Hotel {
     public String getImage() {
         return image;
     }
+
     public void setImage(final String image) {
         this.image = image;
     }
@@ -60,6 +66,7 @@ public class Hotel {
     public List<Review> getReviews() {
         return reviews;
     }
+
     public void setReviews(final List<Review> reviews) {
         this.reviews = reviews;
     }
@@ -67,6 +74,7 @@ public class Hotel {
     public boolean isSwimmingPoolAvailable() {
         return swimmingPoolAvailable;
     }
+
     public void setSwimmingPoolAvailable(final boolean swimmingPoolAvailable) {
         this.swimmingPoolAvailable = swimmingPoolAvailable;
     }

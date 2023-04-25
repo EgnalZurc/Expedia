@@ -12,6 +12,7 @@ public class Review {
     public String getId() {
         return id;
     }
+
     public void setId(final String id) {
         this.id = id;
     }
@@ -19,6 +20,7 @@ public class Review {
     public float getRating() {
         return rating;
     }
+
     public void setRating(final float rating) {
         this.rating = rating;
     }
@@ -26,6 +28,7 @@ public class Review {
     public String getComment() {
         return comment;
     }
+
     public void setComment(final String comment) {
         this.comment = comment;
     }
@@ -33,6 +36,7 @@ public class Review {
     public String getUser() {
         return user;
     }
+
     public void setUser(final String user) {
         this.user = user;
     }
@@ -40,6 +44,7 @@ public class Review {
     public Date getDate() {
         return date;
     }
+
     public void setDate(final Date date) {
         this.date = date;
     }
