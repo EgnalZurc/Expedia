@@ -84,10 +84,10 @@ public class HotelTest {
     }
 
     @Test
-    public void testSetAndGetHasSwimmingPool() {
+    public void testSetAndGetSwimmingPool() {
         Hotel hotel = new Hotel();
         boolean hasSwimmingPool = true;
-        hotel.setHasSwimmingPool(hasSwimmingPool);
-        assertEquals(hasSwimmingPool, hotel.isHasSwimmingPool());
+        hotel.setSwimmingPoolAvailable(hasSwimmingPool);
+        assertEquals(hasSwimmingPool, hotel.isSwimmingPoolAvailable());
     }
 }
