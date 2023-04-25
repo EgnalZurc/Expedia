@@ -3,6 +3,7 @@ package com.expedia.hotel;
 import com.expedia.location.Location;
 import com.expedia.review.Review;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
@@ -120,6 +121,14 @@ public class Hotel {
 
         public Builder withReviews(List<Review> reviews) {
             this.reviews = reviews;
+            return this;
+        }
+
+        public Builder withOneReviewMore(Review review) {
+            if(reviews == null) {
+               reviews = new ArrayList<>();
+            }
+            reviews.add(review);
             return this;
         }
 
