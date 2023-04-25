@@ -122,4 +122,34 @@ public class HotelTest {
         assertEquals(reviews, hotel.getReviews());
         assertEquals(swimmingPoolAvailable, hotel.isSwimmingPoolAvailable());
     }
+
+    @Test
+    public void testWithOneReviewMore() {
+        Review review1 = new Review.Builder("1")
+                .withRating(4.5f)
+                .withComment("Great hotel!")
+                .withUser("John")
+                .build();
+
+        Review review2 = new Review.Builder("2")
+                .withRating(3.0f)
+                .withComment("Not bad, but not great either.")
+                .withUser("Jane")
+                .build();
+
+        Hotel hotel = new Hotel.Builder("100")
+                .withName("Hotel ABC")
+                .withDescription("A lovely hotel with great amenities.")
+                .withTotalPrice(200.0f)
+                .withImage("https://example.com/image.jpg")
+                .withSwimmingPoolAvailable(true)
+                .withOneReviewMore(review1)
+                .withOneReviewMore(review2)
+                .build();
+
+        assertEquals(2, hotel.getReviews().size());
+        List<Review> reviews = hotel.getReviews();
+        assertEquals(review1, reviews.get(0));
+        assertEquals(review2, reviews.get(1));
+    }
 }
