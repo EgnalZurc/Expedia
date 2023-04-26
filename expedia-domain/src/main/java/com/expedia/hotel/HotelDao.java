@@ -36,7 +36,7 @@ public class HotelDao {
      * The SQL query to retrieve hotel information, including its location and reviews.
      */
     private static final String HOTEL_QUERY =
-            "SELECT h.id, h.name, h.description, h.totalPrice, h.image, h.swimmingPoolAvailable, l.id AS location_id, l.name AS location_name, " +
+            "SELECT h.id, h.name, h.description, h.totalPrice, h.image, h.swimmingPoolAvailable, h.location_id, l.name AS location_name, " +
                     "l.date AS location_date, r.id AS review_id, r.rating, r.comment, r.user, r.date " +
                     "FROM hotel h " +
                     "JOIN location l ON h.location_id = l.id " +
