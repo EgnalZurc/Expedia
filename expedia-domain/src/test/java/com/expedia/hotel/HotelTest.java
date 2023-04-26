@@ -93,6 +93,62 @@ public class HotelTest {
     }
 
     @Test
+    public void testWithOneReviewMore() {
+        Review review1 = new Review.Builder("1")
+                .withRating(4.5f)
+                .withComment("Great hotel!")
+                .withUser("John")
+                .build();
+
+        Review review2 = new Review.Builder("2")
+                .withRating(3.0f)
+                .withComment("Not bad, but not great either.")
+                .withUser("Jane")
+                .build();
+
+        Hotel hotel = new Hotel.Builder("100")
+                .withName("Hotel ABC")
+                .withDescription("A lovely hotel with great amenities.")
+                .withTotalPrice(200.0f)
+                .withImage("https://example.com/image.jpg")
+                .withSwimmingPoolAvailable(true)
+                .withOneReviewMore(review1)
+                .withOneReviewMore(review2)
+                .build();
+
+        assertEquals(2, hotel.getReviews().size());
+        List<Review> reviews = hotel.getReviews();
+        assertEquals(review1, reviews.get(0));
+        assertEquals(review2, reviews.get(1));
+    }
+
+    @Test
+    public void testGetAverageRatingWithNoReviews() {
+        Hotel hotel = new Hotel.Builder("1").build();
+        assertEquals(0.0f, hotel.getAverageRating(), 0.01f);
+    }
+
+    @Test
+    public void testGetAverageRatingWithOneReview() {
+        Review review = new Review.Builder("1").withRating(4.0f).build();
+        Hotel hotel = new Hotel.Builder("1").withOneReviewMore(review).build();
+        assertEquals(4.0f, hotel.getAverageRating(), 0.01f);
+    }
+
+    @Test
+    public void testGetAverageRatingWithMultipleReviews() {
+        Review review1 = new Review.Builder("1").withRating(4.0f).build();
+        Review review2 = new Review.Builder("2").withRating(5.0f).build();
+        Review review3 = new Review.Builder("3").withRating(3.0f).build();
+        Hotel hotel = new Hotel.Builder("1")
+                .withOneReviewMore(review1)
+                .withOneReviewMore(review2)
+                .withOneReviewMore(review3)
+                .build();
+        assertEquals(4.0f, hotel.getAverageRating(), 0.01f);
+    }
+
+    @Test
     public void testBuilder() {
         String id = "hotel1";
         String name = "Test Hotel";
@@ -121,35 +177,5 @@ public class HotelTest {
         assertEquals(image, hotel.getImage());
         assertEquals(reviews, hotel.getReviews());
         assertEquals(swimmingPoolAvailable, hotel.isSwimmingPoolAvailable());
-    }
-
-    @Test
-    public void testWithOneReviewMore() {
-        Review review1 = new Review.Builder("1")
-                .withRating(4.5f)
-                .withComment("Great hotel!")
-                .withUser("John")
-                .build();
-
-        Review review2 = new Review.Builder("2")
-                .withRating(3.0f)
-                .withComment("Not bad, but not great either.")
-                .withUser("Jane")
-                .build();
-
-        Hotel hotel = new Hotel.Builder("100")
-                .withName("Hotel ABC")
-                .withDescription("A lovely hotel with great amenities.")
-                .withTotalPrice(200.0f)
-                .withImage("https://example.com/image.jpg")
-                .withSwimmingPoolAvailable(true)
-                .withOneReviewMore(review1)
-                .withOneReviewMore(review2)
-                .build();
-
-        assertEquals(2, hotel.getReviews().size());
-        List<Review> reviews = hotel.getReviews();
-        assertEquals(review1, reviews.get(0));
-        assertEquals(review2, reviews.get(1));
     }
 }
