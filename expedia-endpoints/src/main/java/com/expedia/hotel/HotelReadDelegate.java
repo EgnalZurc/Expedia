@@ -11,6 +11,8 @@ public class HotelReadDelegate {
     }
 
     public List<Hotel> readResources() {
-        return hotelService.getAllHotels();
+        List<Hotel> hotels = hotelService.getAllHotels();
+        hotelService.sortByRating(hotels);
+        return hotels;
     }
 }
