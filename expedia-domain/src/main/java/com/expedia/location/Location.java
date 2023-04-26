@@ -2,6 +2,10 @@ package com.expedia.location;
 
 import java.util.Date;
 
+/**
+ * The Location class represents a location where a hotel is located.
+ * It contains the information about the location, including the ID, name, and date.
+ */
 public class Location {
 
     private String id;

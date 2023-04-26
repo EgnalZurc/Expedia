@@ -6,6 +6,11 @@ import com.expedia.review.Review;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a hotel entity that contains hotel information such as id, name, description, location,
+ * total price, image, reviews, and whether swimming pool is available or not. It also has a nested Builder class
+ * that helps to construct a Hotel object with only required information.
+ */
 public class Hotel {
     private String id;
     private String name;
@@ -136,8 +141,8 @@ public class Hotel {
         }
 
         public Builder withOneReviewMore(Review review) {
-            if(reviews == null) {
-               reviews = new ArrayList<>();
+            if (reviews == null) {
+                reviews = new ArrayList<>();
             }
             reviews.add(review);
             return this;

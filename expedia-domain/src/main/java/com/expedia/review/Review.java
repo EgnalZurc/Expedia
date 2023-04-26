@@ -2,6 +2,9 @@ package com.expedia.review;
 
 import java.util.Date;
 
+/**
+ * Represents a review for a hotel.
+ */
 public class Review {
     private String id;
     private float rating;

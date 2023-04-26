@@ -9,18 +9,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The HotelDao class provides methods to access the database and retrieve information about hotels.
+ * It communicates with the database using JDBC and executes SQL queries.
+ */
 public class HotelDao {
 
     private final String URL;
     private final String USERNAME;
     private final String PASSWORD;
 
+    /**
+     * Constructs a new HotelDao instance.
+     *
+     * @param url      The URL of the database.
+     * @param username The username to access the database.
+     * @param password The password to access the database.
+     */
     public HotelDao(String url, String username, String password) {
         this.URL = url;
         this.USERNAME = username;
         this.PASSWORD = password;
     }
 
+    /**
+     * The SQL query to retrieve hotel information, including its location and reviews.
+     */
     private static final String HOTEL_QUERY =
             "SELECT h.id, h.name, h.description, h.totalPrice, h.image, h.swimmingPoolAvailable, l.id AS location_id, l.name AS location_name, " +
                     "l.date AS location_date, r.id AS review_id, r.rating, r.comment, r.user, r.date " +
@@ -28,6 +42,11 @@ public class HotelDao {
                     "JOIN location l ON h.location_id = l.id " +
                     "JOIN review r ON h.id = r.hotel_id";
 
+    /**
+     * Returns a list of all hotels from the database, including their locations and reviews.
+     *
+     * @return A list of all hotels.
+     */
     public List<Hotel> getAllHotels() {
         Map<String, Hotel.Builder> hotelBuilders = new HashMap<>();
 
