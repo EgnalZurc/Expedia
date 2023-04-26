@@ -10,9 +10,17 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Configures the base application for the Expedia API, including the endpoints and singletons.
+ */
 @ApplicationPath("/expedia-endpoints")
 public class ExpediaApiBaseApplication extends Application {
 
+    /**
+     * Retrieves the set of classes that are used by this application.
+     *
+     * @return a set of classes
+     */
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
@@ -20,6 +28,11 @@ public class ExpediaApiBaseApplication extends Application {
         return classes;
     }
 
+    /**
+     * Retrieves the set of singletons that are used by this application.
+     *
+     * @return a set of singletons
+     */
     @Override
     public Set<Object> getSingletons() {
         Set<Object> singletons = new HashSet<>();

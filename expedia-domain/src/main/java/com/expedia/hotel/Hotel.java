@@ -85,17 +85,6 @@ public class Hotel {
         this.swimmingPoolAvailable = swimmingPoolAvailable;
     }
 
-    public float getAverageRating() {
-        float averageRating = 0;
-        if (reviews == null || reviews.isEmpty()) {
-            return averageRating;
-        }
-        for (Review review : reviews) {
-            averageRating += review.getRating();
-        }
-        return averageRating / reviews.size();
-    }
-
     public static class Builder {
         final private String id;
         private String name;

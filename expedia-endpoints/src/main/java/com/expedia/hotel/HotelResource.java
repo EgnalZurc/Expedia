@@ -27,8 +27,8 @@ public class HotelResource {
         this.description = hotel.getDescription();
         this.totalPrice = hotel.getTotalPrice();
         this.image = hotel.getImage();
-        this.location = new LocationResource(hotel.getLocation());
-        this.reviews = hotel.getReviews().stream().map(ReviewResource::new).toList();
+        this.location = hotel.getLocation() == null ? null : new LocationResource(hotel.getLocation());
+        this.reviews = hotel.getReviews() == null ? null : hotel.getReviews().stream().map(ReviewResource::new).toList();
     }
 
     public String getId() {

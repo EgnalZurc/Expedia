@@ -31,7 +31,7 @@ public class HotelServiceTest {
 
         when(hotelDao.getAllHotels()).thenReturn(hotels);
 
-        List<Hotel> sortedHotels = hotelService.getAllHotels();
+        List<HotelResource> sortedHotels = hotelService.getAllHotels();
 
         assertEquals(sortedHotels.get(0).getName(), "Hotel A");
         assertEquals(sortedHotels.get(1).getName(), "Hotel B");
@@ -40,7 +40,7 @@ public class HotelServiceTest {
 
     @Test
     public void testSortByRating() {
-        final List<Hotel> hotels = new ArrayList<>();
+        final List<HotelResource> hotels = new ArrayList<>();
         final List<Review> reviewList1 = new ArrayList<>();
         final List<Review> reviewList2 = new ArrayList<>();
         final List<Review> reviewList3 = new ArrayList<>();
@@ -52,15 +52,41 @@ public class HotelServiceTest {
         reviewList3.add(new Review.Builder("5").withRating(2.5F).build());
         reviewList3.add(new Review.Builder("6").withRating(2.1F).build());
 
-        hotels.add(new Hotel.Builder("1").withName("Hotel A").withTotalPrice(100.0f).withReviews(reviewList1).build());
-        hotels.add(new Hotel.Builder("2").withName("Hotel B").withTotalPrice(200.0f).withReviews(reviewList2).build());
-        hotels.add(new Hotel.Builder("3").withName("Hotel C").withTotalPrice(300.0f).withReviews(reviewList3).build());
+        hotels.add(new HotelResource(new Hotel.Builder("1").withName("Hotel A").withTotalPrice(100.0f).withReviews(reviewList1).build()));
+        hotels.add(new HotelResource(new Hotel.Builder("2").withName("Hotel B").withTotalPrice(200.0f).withReviews(reviewList2).build()));
+        hotels.add(new HotelResource(new Hotel.Builder("3").withName("Hotel C").withTotalPrice(300.0f).withReviews(reviewList3).build()));
 
         hotelService.sortByRating(hotels);
 
         assertEquals(hotels.get(0).getName(), "Hotel A");
         assertEquals(hotels.get(1).getName(), "Hotel B");
         assertEquals(hotels.get(2).getName(), "Hotel C");
+    }
+
+    @Test
+    public void testGetAverageRatingWithNoReviews() {
+        Hotel hotel = new Hotel.Builder("1").build();
+        assertEquals(0.0f, HotelService.getHotelAverageRating(new HotelResource(hotel)), 0.01f);
+    }
+
+    @Test
+    public void testGetAverageRatingWithOneReview() {
+        Review review = new Review.Builder("1").withRating(4.0f).build();
+        Hotel hotel = new Hotel.Builder("1").withOneReviewMore(review).build();
+        assertEquals(4.0f, HotelService.getHotelAverageRating(new HotelResource(hotel)), 0.01f);
+    }
+
+    @Test
+    public void testGetAverageRatingWithMultipleReviews() {
+        Review review1 = new Review.Builder("1").withRating(4.0f).build();
+        Review review2 = new Review.Builder("2").withRating(5.0f).build();
+        Review review3 = new Review.Builder("3").withRating(3.0f).build();
+        Hotel hotel = new Hotel.Builder("1")
+                .withOneReviewMore(review1)
+                .withOneReviewMore(review2)
+                .withOneReviewMore(review3)
+                .build();
+        assertEquals(4.0f, HotelService.getHotelAverageRating(new HotelResource(hotel)), 0.01f);
     }
 
 }

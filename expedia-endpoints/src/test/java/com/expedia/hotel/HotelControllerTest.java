@@ -29,10 +29,10 @@ public class HotelControllerTest {
 
     @Test
     public void testGetHotelsOrderByRating() {
-        List<Hotel> hotels = new ArrayList<>();
+        List<HotelResource> hotels = new ArrayList<>();
         when(hotelReadDelegate.readResources()).thenReturn(hotels);
 
-        List<Hotel> result = hotelController.query();
+        List<HotelResource> result = hotelController.query();
 
         verify(hotelReadDelegate, times(1)).readResources();
         assertEquals(hotels, result);

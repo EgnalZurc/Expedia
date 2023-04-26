@@ -26,15 +26,15 @@ public class HotelReadDelegateTest {
     @Test
     public void testReadResources() {
         HotelReadDelegate hotelReadDelegate = new HotelReadDelegate(hotelService);
-        List<Hotel> expectedHotels = new ArrayList<>();
-        expectedHotels.add(new Hotel.Builder("Hotel A").build());
-        expectedHotels.add(new Hotel.Builder("Hotel B").build());
-        expectedHotels.add(new Hotel.Builder("Hotel C").build());
+        List<HotelResource> expectedHotels = new ArrayList<>();
+        expectedHotels.add(new HotelResource(new Hotel.Builder("Hotel A").build()));
+        expectedHotels.add(new HotelResource(new Hotel.Builder("Hotel B").build()));
+        expectedHotels.add(new HotelResource(new Hotel.Builder("Hotel C").build()));
 
         // Mock the behavior of getAllHotels and sortByRating methods
         when(hotelService.getAllHotels()).thenReturn(expectedHotels);
 
-        List<Hotel> actualHotels = hotelReadDelegate.readResources();
+        List<HotelResource> actualHotels = hotelReadDelegate.readResources();
 
         assertEquals(expectedHotels, actualHotels);
         verify(hotelService, times(1)).sortByRating(expectedHotels);

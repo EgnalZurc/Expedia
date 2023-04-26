@@ -123,32 +123,6 @@ public class HotelTest {
     }
 
     @Test
-    public void testGetAverageRatingWithNoReviews() {
-        Hotel hotel = new Hotel.Builder("1").build();
-        assertEquals(0.0f, hotel.getAverageRating(), 0.01f);
-    }
-
-    @Test
-    public void testGetAverageRatingWithOneReview() {
-        Review review = new Review.Builder("1").withRating(4.0f).build();
-        Hotel hotel = new Hotel.Builder("1").withOneReviewMore(review).build();
-        assertEquals(4.0f, hotel.getAverageRating(), 0.01f);
-    }
-
-    @Test
-    public void testGetAverageRatingWithMultipleReviews() {
-        Review review1 = new Review.Builder("1").withRating(4.0f).build();
-        Review review2 = new Review.Builder("2").withRating(5.0f).build();
-        Review review3 = new Review.Builder("3").withRating(3.0f).build();
-        Hotel hotel = new Hotel.Builder("1")
-                .withOneReviewMore(review1)
-                .withOneReviewMore(review2)
-                .withOneReviewMore(review3)
-                .build();
-        assertEquals(4.0f, hotel.getAverageRating(), 0.01f);
-    }
-
-    @Test
     public void testBuilder() {
         String id = "hotel1";
         String name = "Test Hotel";
