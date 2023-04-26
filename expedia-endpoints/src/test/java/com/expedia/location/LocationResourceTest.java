@@ -2,11 +2,18 @@ package com.expedia.location;
 
 import org.junit.Test;
 
-import java.util.Date;
-
 import static org.junit.Assert.*;
 
 public class LocationResourceTest {
+
+    @Test
+    public void testConstructor() {
+        final Location location = new Location.Builder("1").withName("New York").build();
+        LocationResource resource = new LocationResource(location);
+
+        assertEquals("1", resource.getId());
+        assertEquals("New York", resource.getName());
+    }
 
     @Test
     public void testSetAndGetId() {

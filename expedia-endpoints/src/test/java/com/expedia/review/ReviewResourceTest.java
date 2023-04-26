@@ -2,12 +2,23 @@ package com.expedia.review;
 
 import org.junit.Test;
 
-import java.util.Date;
-
 import static org.junit.Assert.*;
 
 public class ReviewResourceTest {
-    
+
+    @Test
+    public void testConstructor() {
+        final Review review = new Review.Builder("1234").withRating(4.5f).withComment("Good hotel").withUser("John").build();
+
+        ReviewResource reviewResource = new ReviewResource(review);
+
+        assertEquals("1234", reviewResource.getId());
+        assertEquals(4.5f, reviewResource.getRating(), 0.1);
+        assertEquals("Good hotel", reviewResource.getComment());
+        assertEquals("John", reviewResource.getUser());
+    }
+
+
     @Test
     public void testSetAndGetId() {
         ReviewResource review = new ReviewResource();
@@ -19,9 +30,9 @@ public class ReviewResourceTest {
     @Test
     public void testSetAndGetRating() {
         ReviewResource review = new ReviewResource();
-        int rating = 4;
+        float rating = 4;
         review.setRating(rating);
-        assertEquals(rating, review.getRating());
+        assertEquals(rating, review.getRating(), 0);
     }
 
     @Test

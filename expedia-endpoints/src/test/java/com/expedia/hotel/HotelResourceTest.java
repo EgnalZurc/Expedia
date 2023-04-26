@@ -1,6 +1,8 @@
 package com.expedia.hotel;
 
+import com.expedia.location.Location;
 import com.expedia.location.LocationResource;
+import com.expedia.review.Review;
 import com.expedia.review.ReviewResource;
 
 import org.junit.Test;
@@ -10,6 +12,29 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class HotelResourceTest {
+
+    @Test
+    public void testConstructor() {
+        final Hotel hotel = new Hotel.Builder("123")
+                .withName("Example Hotel")
+                .withDescription("This is an example hotel")
+                .withTotalPrice(100.0f)
+                .withImage("example.com/hotel.jpg")
+                .withLocation(new Location.Builder("456").withName("New York").build())
+                .withOneReviewMore(new Review.Builder("789").withRating(4.5f).withComment("Great hotel!").withUser("John Doe").build())
+                .withOneReviewMore(new Review.Builder("101112").withRating(3.5f).withComment("Decent hotel!").withUser("Jane Doe").build())
+                .build();
+
+        final HotelResource resource = new HotelResource(hotel);
+        assertEquals("123", resource.getId());
+        assertEquals("Example Hotel", resource.getName());
+        assertEquals("This is an example hotel", resource.getDescription());
+        assertEquals(100.0f, resource.getTotalPrice(), 0.0);
+        assertEquals("example.com/hotel.jpg", resource.getImage());
+        assertEquals("456", resource.getLocation().getId());
+        assertEquals("789", resource.getReviews().get(0).getId());
+        assertEquals("101112", resource.getReviews().get(1).getId());
+    }
 
     @Test
     public void testSetAndGetId() {
@@ -48,9 +73,9 @@ public class HotelResourceTest {
     @Test
     public void testSetAndGetTotalPrice() {
         HotelResource hotel = new HotelResource();
-        int price = 100;
+        float price = 100.0F;
         hotel.setTotalPrice(price);
-        assertEquals(price, hotel.getTotalPrice());
+        assertEquals(price, hotel.getTotalPrice(), 0.0);
     }
 
     @Test
