@@ -13,7 +13,7 @@ import java.util.List;
  * <p>
  * It uses the HotelReadDelegate class to retrieve and sort hotels based on their ratings.
  */
-@Path("/hotels")
+@Path("/hotel")
 public class HotelController {
 
     private final HotelReadDelegate hotelReadDelegate;
