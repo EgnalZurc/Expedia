@@ -10,16 +10,16 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class HotelDelegateTest {
+public class HotelReadDelegateTest {
 
-    private HotelDelegate hotelDelegate;
+    private HotelReadDelegate hotelDelegate;
 
     @Mock
     private HotelService hotelServiceMock;
 
     @Before
     public void setUp() {
-        hotelDelegate = new HotelDelegate(hotelServiceMock);
+        hotelDelegate = new HotelReadDelegate(hotelServiceMock);
     }
 
     @Test
