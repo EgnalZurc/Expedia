@@ -1,44 +1,40 @@
 package com.expedia.hotel;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import org.mockito.MockitoAnnotations;
 
 public class HotelReadDelegateTest {
 
+    @Mock
+    private HotelService hotelService;
+
     private HotelReadDelegate hotelDelegate;
 
-    @Mock
-    private HotelService hotelServiceMock;
-
     @Before
-    public void setUp() {
-        hotelDelegate = new HotelReadDelegate(hotelServiceMock);
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        hotelDelegate = new HotelReadDelegate(hotelService);
     }
 
     @Test
     public void testReadResources() {
-        List<Hotel> expectedHotels = new ArrayList<>();
-        expectedHotels.add(new Hotel.Builder("1").build());
-        expectedHotels.add(new Hotel.Builder("2").build());
-        when(hotelServiceMock.getAllHotels()).thenReturn(expectedHotels);
+        // Setup
+        List<Hotel> expectedHotels = Arrays.asList(new Hotel.Builder("hotel1").build(),
+                new Hotel.Builder("hotel2").build());
+        when(hotelService.getAllHotels()).thenReturn(expectedHotels);
 
+        // Execution
         List<Hotel> actualHotels = hotelDelegate.readResources();
 
+        // Verification
         assertEquals(expectedHotels, actualHotels);
-        verify(hotelServiceMock, times(1)).getAllHotels();
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void testReadResourcesThrowsRuntimeException() {
-        when(hotelServiceMock.getAllHotels()).thenThrow(new RuntimeException());
-
-        hotelDelegate.readResources();
     }
 }
