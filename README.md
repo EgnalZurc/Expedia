@@ -8,7 +8,7 @@ This project provides an API endpoint to query hotels in rating descending order
 
 To build and run this project, you'll need:
 
-- JDK 8 or higher
+- JDK 8 or higher (It was tested with JDK 16)
 - Apache Maven
 - MySQL server
 
@@ -26,18 +26,18 @@ To build and run this project, you'll need:
 5. Start the application by running the following command:
 
     ```
-    mvn jetty:run
+    mvn spring-boot:run
     ```
-NOTE: In this version of the app the database connection is not configurable, it's expected the database to be created on localhost, port 3306 with username "user", paswsword "password"
+NOTE: The database configuration is in the following file: expedia-endpoints/src/main/resources/application.properties
 
 ## API Endpoint
 
-The API endpoint for querying hotels is located at `/expedia-endpoints/hotel`. It accepts HTTP GET requests and returns a JSON array of hotels sorted by rating in descending order.
+The API endpoint for querying hotels is located at `/expedia-endpoints/hotels`. It accepts HTTP GET requests and returns a JSON array of hotels sorted by rating in descending order.
 
 ### Example Request
 
 ```
-GET /expedia-endpoints/hotel HTTP/1.1
+GET /expedia-endpoints/hotels HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
 ```
@@ -50,36 +50,59 @@ Content-Type: application/json
 
 [
   {
-    "id": 1,
-    "name": "Hotel A",
-    "address": "123 Main St",
+    "id": "2",
+    "name": "Gran Via Hotel",
+    "description": "A luxurious hotel close to Gran Via",
+    "location": {
+      "id": "3",
+      "name": "London"
+    },
+    "totalPrice": 250,
+    "image": "https://example.com/hotel_002.jpg",
     "reviews": [
       {
-        "id": 1,
-        "rating": 4.5,
-        "comment": "Great hotel"
-      },
-      {
-        "id": 2,
-        "rating": 3.5,
-        "comment": "Decent hotel"
+        "id": "2",
+        "rating": 4.9,
+        "comment": "Great hotel with excellent service!",
+        "user": "John Smith"
       }
     ]
   },
   {
-    "id": 2,
-    "name": "Hotel B",
-    "address": "456 Oak St",
+    "id": "1",
+    "name": "Bull Hotel",
+    "description": "A luxurious hotel close to Wall Street",
+    "location": {
+      "id": "3",
+      "name": "London"
+    },
+    "totalPrice": 250,
+    "image": "https://example.com/hotel_001.jpg",
     "reviews": [
       {
-        "id": 3,
-        "rating": 5,
-        "comment": "Amazing hotel"
-      },
+        "id": "1",
+        "rating": 4.5,
+        "comment": "Great hotel with excellent service!",
+        "user": "John Smith"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Eye Hotel",
+    "description": "A luxurious hotel close to London Eye",
+    "location": {
+      "id": "3",
+      "name": "London"
+    },
+    "totalPrice": 250,
+    "image": "https://example.com/hotel_003.jpg",
+    "reviews": [
       {
-        "id": 4,
-        "rating": 4,
-        "comment": "Nice hotel"
+        "id": "3",
+        "rating": 4.1,
+        "comment": "Great hotel with excellent service!",
+        "user": "John Smith"
       }
     ]
   }
