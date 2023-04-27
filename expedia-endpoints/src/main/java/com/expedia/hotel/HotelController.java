@@ -26,7 +26,6 @@ public class HotelController {
      */
     @Autowired
     public HotelController(HotelService hotelService) {
-        System.out.println("Loaded!!!");
         this.hotelService = hotelService;
     }
 
