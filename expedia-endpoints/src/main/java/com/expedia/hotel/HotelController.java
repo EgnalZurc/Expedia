@@ -8,18 +8,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * The HotelController class represents the REST controller for the Hotel resource.
+ * <p>
+ * It defines the endpoints for handling HTTP requests related to hotels.
+ */
 @RestController
 @RequestMapping("/hotels")
 public class HotelController {
 
     private final HotelService hotelService;
 
+    /**
+     * Constructs a new instance of HotelController and injects the provided HotelService.
+     *
+     * @param hotelService The HotelService to be used by the controller.
+     */
     @Autowired
     public HotelController(HotelService hotelService) {
         System.out.println("Loaded!!!");
         this.hotelService = hotelService;
     }
 
+    /**
+     * Handles GET requests for the list of hotels sorted by rating in descending order.
+     *
+     * @return A ResponseEntity containing the list of hotels sorted by rating in descending order.
+     */
     @GetMapping("")
     public ResponseEntity<List<HotelResource>> getHotels() {
         List<Hotel> hotels = hotelService.getAllHotelsSortedByRatingDescending();
