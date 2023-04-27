@@ -5,17 +5,6 @@ CREATE TABLE location
     date DATE         NOT NULL
 );
 
-CREATE TABLE review
-(
-    id       VARCHAR(36) PRIMARY KEY,
-    rating   FLOAT        NOT NULL,
-    comment  VARCHAR(500) NOT NULL,
-    user     VARCHAR(100) NOT NULL,
-    date     DATE         NOT NULL,
-    hotel_id VARCHAR(36)  NOT NULL,
-    FOREIGN KEY (hotel_id) REFERENCES hotel (id)
-);
-
 CREATE TABLE hotel
 (
     id                    VARCHAR(36) PRIMARY KEY,
@@ -26,4 +15,15 @@ CREATE TABLE hotel
     swimmingPoolAvailable BOOLEAN      NOT NULL,
     location_id           VARCHAR(36)  NOT NULL,
     FOREIGN KEY (location_id) REFERENCES location (id)
+);
+
+CREATE TABLE review
+(
+    id       VARCHAR(36) PRIMARY KEY,
+    rating   FLOAT        NOT NULL,
+    comment  VARCHAR(500) NOT NULL,
+    user     VARCHAR(100) NOT NULL,
+    date     DATE         NOT NULL,
+    hotel_id VARCHAR(36)  NOT NULL,
+    FOREIGN KEY (hotel_id) REFERENCES hotel (id)
 );
