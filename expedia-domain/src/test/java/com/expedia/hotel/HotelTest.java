@@ -151,4 +151,26 @@ public class HotelTest {
         assertEquals(reviews, hotel.getReviews());
         assertEquals(swimmingPoolAvailable, hotel.isSwimmingPoolAvailable());
     }
+
+    @Test
+    public void testGetRatingAverageWithNoReviews() {
+        Hotel hotel = new Hotel();
+        assertEquals(0.0f, hotel.getRatingAverage(), 0.001f);
+    }
+
+    @Test
+    public void testGetRatingAverageWithOneReview() {
+        Hotel hotel = new Hotel.Builder("1").
+                withOneReviewMore(new Review.Builder("1").withRating(4.0f).build()).build();
+        assertEquals(4.0f, hotel.getRatingAverage(), 0.001f);
+    }
+
+    @Test
+    public void testGetRatingAverageWithMultipleReviews() {
+        Hotel hotel = new Hotel.Builder("1").
+                withOneReviewMore(new Review.Builder("1").withRating(4.0f).build()).
+                withOneReviewMore(new Review.Builder("2").withRating(5.0f).build()).
+                withOneReviewMore(new Review.Builder("3").withRating(3.0f).build()).build();
+        assertEquals(4.0f, hotel.getRatingAverage(), 0.001f);
+    }
 }

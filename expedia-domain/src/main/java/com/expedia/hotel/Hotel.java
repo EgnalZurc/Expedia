@@ -3,6 +3,7 @@ package com.expedia.hotel;
 import com.expedia.location.Location;
 import com.expedia.review.Review;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +12,26 @@ import java.util.List;
  * total price, image, reviews, and whether swimming pool is available or not. It also has a nested Builder class
  * that helps to construct a Hotel object with only required information.
  */
+@Entity
+@Table(name = "hotel")
 public class Hotel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
+    @Column(name = "totalPrice")
     private float totalPrice;
+    @Column(name = "image")
     private String image;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
+    @Column(name = "swimmingPoolAvailable")
     private boolean swimmingPoolAvailable;
 
     public String getId() {
@@ -83,6 +96,13 @@ public class Hotel {
 
     public void setSwimmingPoolAvailable(final boolean swimmingPoolAvailable) {
         this.swimmingPoolAvailable = swimmingPoolAvailable;
+    }
+
+    public float getRatingAverage() {
+        if (reviews == null || reviews.isEmpty()) {
+            return 0.0F;
+        }
+        return reviews.stream().map(Review::getRating).reduce(0.0f, Float::sum) / reviews.size();
     }
 
     public static class Builder {

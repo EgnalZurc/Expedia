@@ -1,16 +1,32 @@
 package com.expedia.review;
 
+import com.expedia.hotel.Hotel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Represents a review for a hotel.
  */
+@Entity
+@Table(name = "review")
 public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    @Column(name = "rating")
     private float rating;
+    @Column(name = "comment")
     private String comment;
+    @Column(name = "user")
     private String user;
+    @Column(name = "date")
     private Date date;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
+    @JsonIgnore
+    private Hotel hotel;
 
     public String getId() {
         return id;

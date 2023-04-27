@@ -1,15 +1,21 @@
 package com.expedia.location;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * The Location class represents a location where a hotel is located.
  * It contains the information about the location, including the ID, name, and date.
  */
+@Entity
+@Table(name = "location")
 public class Location {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "date")
     private Date date;
 
     public String getId() {
