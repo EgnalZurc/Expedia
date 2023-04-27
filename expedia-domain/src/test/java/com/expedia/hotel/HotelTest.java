@@ -1,5 +1,7 @@
 package com.expedia.hotel;
 
+import com.expedia.location.Location;
+import com.expedia.review.Review;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -7,9 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-
-import com.expedia.location.Location;
-import com.expedia.review.Review;
 
 public class HotelTest {
     @Test

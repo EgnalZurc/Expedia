@@ -1,7 +1,5 @@
 package com.expedia.hotel;
 
-import static org.mockito.Mockito.*;
-
 import com.expedia.review.Review;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +13,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(DriverManager.class)

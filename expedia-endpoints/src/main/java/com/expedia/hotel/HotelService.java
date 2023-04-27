@@ -21,24 +21,6 @@ public class HotelService {
     }
 
     /**
-     * Retrieves all hotels and maps them to a list of HotelResource objects.
-     *
-     * @return A list of HotelResource objects.
-     */
-    public List<HotelResource> getAllHotels() {
-        return hotelDao.getAllHotels().stream().map(HotelResource::new).toList();
-    }
-
-    /**
-     * Sorts a list of hotels by rating in descending order.
-     *
-     * @param hotels The list of hotels to sort.
-     */
-    public void sortByRating(List<HotelResource> hotels) {
-        hotels.sort((h1, h2) -> Float.compare(HotelService.getHotelAverageRating(h2), HotelService.getHotelAverageRating(h1)));
-    }
-
-    /**
      * Calculates the average rating for a hotel.
      *
      * @param hotel The hotel to calculate the average rating for.
@@ -54,5 +36,23 @@ public class HotelService {
             averageRating += review.getRating();
         }
         return averageRating / reviews.size();
+    }
+
+    /**
+     * Retrieves all hotels and maps them to a list of HotelResource objects.
+     *
+     * @return A list of HotelResource objects.
+     */
+    public List<HotelResource> getAllHotels() {
+        return hotelDao.getAllHotels().stream().map(HotelResource::new).toList();
+    }
+
+    /**
+     * Sorts a list of hotels by rating in descending order.
+     *
+     * @param hotels The list of hotels to sort.
+     */
+    public void sortByRating(List<HotelResource> hotels) {
+        hotels.sort((h1, h2) -> Float.compare(HotelService.getHotelAverageRating(h2), HotelService.getHotelAverageRating(h1)));
     }
 }

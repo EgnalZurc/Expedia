@@ -4,11 +4,11 @@ import com.expedia.location.Location;
 import com.expedia.location.LocationResource;
 import com.expedia.review.Review;
 import com.expedia.review.ReviewResource;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class HotelResourceTest {

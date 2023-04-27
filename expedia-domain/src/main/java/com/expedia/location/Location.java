@@ -12,20 +12,20 @@ public class Location {
     private String name;
     private Date date;
 
-    public void setId(final String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public Date getDate() {
