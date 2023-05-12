@@ -4,7 +4,6 @@ import com.expedia.hotel.Hotel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Represents a review for a hotel.
@@ -21,8 +20,6 @@ public class Review {
     private String comment;
     @Column(name = "user")
     private String user;
-    @Column(name = "date")
-    private Date date;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     @JsonIgnore
@@ -60,21 +57,11 @@ public class Review {
         this.user = user;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(final Date date) {
-        this.date = date;
-    }
-
     public static class Builder {
         private final String id;
         private float rating;
         private String comment;
         private String user;
-        private Date date;
-
         public Builder(final String id) {
             this.id = id;
         }
@@ -94,18 +81,12 @@ public class Review {
             return this;
         }
 
-        public Builder withDate(Date date) {
-            this.date = date;
-            return this;
-        }
-
         public Review build() {
             final Review review = new Review();
             review.setId(id);
             review.setRating(rating);
             review.setComment(comment);
             review.setUser(user);
-            review.setDate(date);
             return review;
         }
     }

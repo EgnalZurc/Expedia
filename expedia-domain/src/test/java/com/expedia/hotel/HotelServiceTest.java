@@ -7,10 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Date;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -41,6 +39,22 @@ public class HotelServiceTest {
         hotels.add(new Hotel());
         when(hotelRepository.findAll()).thenReturn(hotels);
         List<Hotel> result = hotelService.getAllHotels();
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void getHotelsSortedByRatingDescending() {
+        List<Hotel> hotels = new ArrayList<>();
+        hotels.add(new Hotel());
+        hotels.add(new Hotel());
+        String locationName = "Madrid";
+        Date checkinDate = new Date(Calendar.getInstance().getTimeInMillis());
+        Date checkoutDate = new Date(Calendar.getInstance().getTimeInMillis());
+        List<Float> priceRange = new ArrayList<>();
+        priceRange.add(0F);
+        priceRange.add(100F);
+        when(hotelRepository.getHotelsByFilter(locationName, checkinDate, checkoutDate, priceRange.get(0), priceRange.get(1))).thenReturn(hotels);
+        List<Hotel> result = hotelService.getHotelsSortedByRatingDescending(locationName, checkinDate, checkoutDate, priceRange);
         assertEquals(2, result.size());
     }
 

@@ -1,7 +1,12 @@
 package com.expedia.hotel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
+import java.util.List;
 
 /**
 
@@ -12,4 +17,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, String> {
+    @Query("SELECT h FROM Hotel h WHERE (:location IS NULL OR h.location.name = :locationName) "
+            + "AND (:checkinDate IS NULL OR h.checkinDate = :checkinDate) "
+            + "AND (:checkoutDate IS NULL OR h.checkoutDate = :checkoutDate) "
+            + "AND (:minPrice IS NULL OR h.totalPrice >= :minPrice) "
+            + "AND (:maxPrice IS NULL OR h.totalPrice <= :maxPrice) ")
+    List<Hotel> getHotelsByFilter(@Param("location") String locationName,
+                                  @Param("checkinDate") Date checkinDate,
+                                  @Param("checkoutDate") Date checkoutDate,
+                                  @Param("minPrice") Float minPrice,
+                                  @Param("maxPrice") Float maxPrice);
 }

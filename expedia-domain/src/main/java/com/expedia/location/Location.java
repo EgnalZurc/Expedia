@@ -1,7 +1,6 @@
 package com.expedia.location;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * The Location class represents a location where a hotel is located.
@@ -15,8 +14,6 @@ public class Location {
     private String id;
     @Column(name = "name")
     private String name;
-    @Column(name = "date")
-    private Date date;
 
     public String getId() {
         return id;
@@ -34,19 +31,9 @@ public class Location {
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(final Date date) {
-        this.date = date;
-    }
-
     public static class Builder {
         private final String id;
         private String name;
-        private Date date;
-
         public Builder(final String id) {
             this.id = id;
         }
@@ -56,16 +43,10 @@ public class Location {
             return this;
         }
 
-        public Builder withDate(Date date) {
-            this.date = date;
-            return this;
-        }
-
         public Location build() {
             final Location location = new Location();
             location.setId(id);
             location.setName(name);
-            location.setDate(date);
             return location;
         }
     }

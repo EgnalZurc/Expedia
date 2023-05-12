@@ -5,7 +5,8 @@ import com.expedia.review.Review;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -70,25 +71,15 @@ public class HotelTest {
         review1.setRating(4);
         review1.setComment("Great hotel");
         review1.setUser("johndoe");
-        review1.setDate(new Date());
         reviews.add(review1);
         Review review2 = new Review();
         review2.setId("2");
         review2.setRating(2);
         review2.setComment("Terrible hotel");
         review2.setUser("janedoe");
-        review2.setDate(new Date());
         reviews.add(review2);
         hotel.setReviews(reviews);
         assertEquals(reviews, hotel.getReviews());
-    }
-
-    @Test
-    public void testSetAndGetSwimmingPool() {
-        Hotel hotel = new Hotel();
-        boolean hasSwimmingPool = true;
-        hotel.setSwimmingPoolAvailable(hasSwimmingPool);
-        assertEquals(hasSwimmingPool, hotel.isSwimmingPoolAvailable());
     }
 
     @Test
@@ -110,7 +101,6 @@ public class HotelTest {
                 .withDescription("A lovely hotel with great amenities.")
                 .withTotalPrice(200.0f)
                 .withImage("https://example.com/image.jpg")
-                .withSwimmingPoolAvailable(true)
                 .withOneReviewMore(review1)
                 .withOneReviewMore(review2)
                 .build();
@@ -122,6 +112,22 @@ public class HotelTest {
     }
 
     @Test
+    public void testSetAndGetCheckinDate() {
+        Hotel hotel = new Hotel();
+        Date checkinDate = new Date(Calendar.getInstance().getTimeInMillis());
+        hotel.setCheckinDate(checkinDate);
+        assertEquals(checkinDate, hotel.getCheckinDate());
+    }
+
+    @Test
+    public void testSetAndGetCheckoutDate() {
+        Hotel hotel = new Hotel();
+        Date checkoutDate = new Date(Calendar.getInstance().getTimeInMillis());
+        hotel.setCheckoutDate(checkoutDate);
+        assertEquals(checkoutDate, hotel.getCheckoutDate());
+    }
+
+    @Test
     public void testBuilder() {
         String id = "hotel1";
         String name = "Test Hotel";
@@ -130,7 +136,6 @@ public class HotelTest {
         float totalPrice = 100.1f;
         String image = "test_image.jpg";
         List<Review> reviews = new ArrayList<>();
-        boolean swimmingPoolAvailable = true;
 
         Hotel hotel = new Hotel.Builder(id)
                 .withName(name)
@@ -139,7 +144,6 @@ public class HotelTest {
                 .withTotalPrice(totalPrice)
                 .withImage(image)
                 .withReviews(reviews)
-                .withSwimmingPoolAvailable(swimmingPoolAvailable)
                 .build();
 
         assertEquals(id, hotel.getId());
@@ -149,7 +153,6 @@ public class HotelTest {
         assertEquals(totalPrice, hotel.getTotalPrice(), 0.1);
         assertEquals(image, hotel.getImage());
         assertEquals(reviews, hotel.getReviews());
-        assertEquals(swimmingPoolAvailable, hotel.isSwimmingPoolAvailable());
     }
 
     @Test

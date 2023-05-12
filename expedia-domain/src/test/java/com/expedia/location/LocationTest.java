@@ -2,8 +2,6 @@ package com.expedia.location;
 
 import org.junit.Test;
 
-import java.util.Date;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -28,28 +26,16 @@ public class LocationTest {
     }
 
     @Test
-    public void testSetAndGetDate() {
-        Location location = new Location();
-        Date date = new Date();
-        location.setDate(date);
-        Date result = location.getDate();
-        assertEquals(date, result);
-    }
-
-    @Test
     public void testBuilder() {
         final String id = "123";
         final String name = "Paris";
-        final Date date = new Date();
 
         final Location location = new Location.Builder(id)
                 .withName(name)
-                .withDate(date)
                 .build();
 
         assertEquals(id, location.getId());
         assertEquals(name, location.getName());
-        assertEquals(date, location.getDate());
     }
 
     @Test
@@ -61,6 +47,5 @@ public class LocationTest {
 
         assertEquals(id, location.getId());
         assertNull(location.getName());
-        assertNull(location.getDate());
     }
 }

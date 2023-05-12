@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,35 @@ public class HotelControllerTest {
 
         // Act
         ResponseEntity<List<HotelResource>> responseEntity = hotelController.getHotels();
+        List<HotelResource> hotelResources = responseEntity.getBody();
+
+        // Assert
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assert hotelResources != null;
+        assertEquals(hotels.get(0).getId(), hotelResources.get(0).getId());
+        assertEquals(hotels.get(0).getName(), hotelResources.get(0).getName());
+        assertEquals(hotels.get(0).getDescription(), hotelResources.get(0).getDescription());
+        assertEquals(hotels.get(0).getTotalPrice(), hotelResources.get(0).getTotalPrice(), 0);
+        assertEquals(hotels.get(0).getImage(), hotelResources.get(0).getImage());
+        assertEquals(hotels.get(0).getLocation().getId(), hotelResources.get(0).getLocation().getId());
+        assertEquals(hotels.get(0).getLocation().getName(), hotelResources.get(0).getLocation().getName());
+        assertEquals(hotels.get(0).getReviews().size(), hotelResources.get(0).getReviews().size());
+    }
+
+    @Test
+    public void getHotelsFiltered() {
+        // Arrange
+        Date date = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        List<Hotel> hotels = new ArrayList<>();
+        hotels.add(new Hotel.Builder("1").withName("Hotel A").withDescription("Description A").withLocation(new Location())
+                .withTotalPrice(100.0f).withImage("Image A").withReviews(new ArrayList<>()).build());
+        hotels.add(new Hotel.Builder("2").withName("Hotel B").withDescription("Description B").withLocation(new Location())
+                .withTotalPrice(100.0f).withImage("Image B").withReviews(new ArrayList<>()).build());
+        when(hotelService.getHotelsSortedByRatingDescending("", sqlDate, sqlDate, new ArrayList<>())).thenReturn(hotels);
+
+        // Act
+        ResponseEntity<List<HotelResource>> responseEntity = hotelController.getHotelsFiltered("", sqlDate, sqlDate, new ArrayList<>());
         List<HotelResource> hotelResources = responseEntity.getBody();
 
         // Assert

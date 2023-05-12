@@ -3,6 +3,7 @@ package com.expedia.hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -40,6 +41,20 @@ public class HotelService {
      */
     public List<Hotel> getAllHotelsSortedByRatingDescending() {
         List<Hotel> hotels = hotelRepository.findAll();
+        hotels.sort((hotel1, hotel2) -> Float.compare(hotel2.getRatingAverage(), hotel1.getRatingAverage()));
+        return hotels;
+    }
+
+    /**
+     * Retrieves filtered hotels sorted by their rating in descending order.
+     * @param locationName the hotel location
+     * @param checkinDate the checking date
+     * @param checkoutDate the checkout date
+     * @param priceRange the price range
+     * @return a list of filtered hotels sorted by rating in descending order.
+     */
+    public List<Hotel> getHotelsSortedByRatingDescending(String locationName, Date checkinDate, Date checkoutDate, List<Float> priceRange) {
+        List<Hotel> hotels = hotelRepository.getHotelsByFilter(locationName, checkinDate, checkoutDate, priceRange.get(0), priceRange.get(1));
         hotels.sort((hotel1, hotel2) -> Float.compare(hotel2.getRatingAverage(), hotel1.getRatingAverage()));
         return hotels;
     }

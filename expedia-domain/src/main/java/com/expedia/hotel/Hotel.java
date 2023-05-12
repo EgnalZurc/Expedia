@@ -4,6 +4,7 @@ import com.expedia.location.Location;
 import com.expedia.review.Review;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +26,16 @@ public class Hotel {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
-    @Column(name = "totalPrice")
+    @Column(name = "total_price")
     private float totalPrice;
     @Column(name = "image")
     private String image;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
-    @Column(name = "swimmingPoolAvailable")
-    private boolean swimmingPoolAvailable;
+    @Column(name = "checkin_date")
+    private Date checkinDate;
+    @Column(name = "checkout_date")
+    private Date checkoutDate;
 
     public String getId() {
         return id;
@@ -90,19 +93,27 @@ public class Hotel {
         this.reviews = reviews;
     }
 
-    public boolean isSwimmingPoolAvailable() {
-        return swimmingPoolAvailable;
-    }
-
-    public void setSwimmingPoolAvailable(final boolean swimmingPoolAvailable) {
-        this.swimmingPoolAvailable = swimmingPoolAvailable;
-    }
-
     public float getRatingAverage() {
         if (reviews == null || reviews.isEmpty()) {
             return 0.0F;
         }
         return reviews.stream().map(Review::getRating).reduce(0.0f, Float::sum) / reviews.size();
+    }
+
+    public Date getCheckinDate() {
+        return checkinDate;
+    }
+
+    public void setCheckinDate(Date checkinDate) {
+        this.checkinDate = checkinDate;
+    }
+
+    public Date getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    public void setCheckoutDate(Date checkoutDate) {
+        this.checkoutDate = checkoutDate;
     }
 
     public static class Builder {
@@ -113,7 +124,6 @@ public class Hotel {
         private float totalPrice;
         private String image;
         private List<Review> reviews;
-        private boolean swimmingPoolAvailable;
 
         public Builder(String id) {
             this.id = id;
@@ -157,11 +167,6 @@ public class Hotel {
             return this;
         }
 
-        public Builder withSwimmingPoolAvailable(boolean swimmingPoolAvailable) {
-            this.swimmingPoolAvailable = swimmingPoolAvailable;
-            return this;
-        }
-
         public Hotel build() {
             final Hotel hotel = new Hotel();
             hotel.setId(this.id);
@@ -171,7 +176,6 @@ public class Hotel {
             hotel.setTotalPrice(this.totalPrice);
             hotel.setImage(this.image);
             hotel.setReviews(this.reviews);
-            hotel.setSwimmingPoolAvailable(this.swimmingPoolAvailable);
             return hotel;
         }
     }
